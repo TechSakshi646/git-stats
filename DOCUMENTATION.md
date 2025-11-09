@@ -158,6 +158,39 @@ Creates the authors pie.
 #### Return
 - **GitStats** The `GitStats` instance.
 
+### `authorsStats(options, callback)`
+Creates an array with the authors and their additions/deletions statistics.
+
+#### Params
+
+- **String|Object** `options`: The repo path or an object containing the following fields:
+ - `repo` (String): The repository path.
+ - `start` (String): The start date.
+ - `end` (String): The end date.
+ - `mode` (String): 'additions', 'deletions', or 'both' (default: 'both').
+- **Function** `callback`: The callback function.
+
+#### Return
+- **GitStats** The `GitStats` instance.
+
+### `authorsStatsPie(options, callback)`
+Creates a pie chart showing author statistics (additions/deletions).
+
+#### Params
+
+- **String|Object** `options`: The repo path or an object containing the following fields:
+ - `repo` (String): The repository path.
+ - `start` (String): The start date.
+ - `end` (String): The end date.
+ - `mode` (String): 'additions', 'deletions', or 'both' (default: 'both').
+ - `radius` (Number): The pie radius.
+ - `no_ansi` (Boolean): If `true`, the pie will not contain ansi characters.
+ - `raw` (Boolean): If `true`, the raw JSON will be displayed.
+- **Function** `callback`: The callback function.
+
+#### Return
+- **GitStats** The `GitStats` instance.
+
 ### `globalActivity(options, callback)`
 Creates the global contributions calendar (all commits made by all committers).
 

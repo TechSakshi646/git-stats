@@ -59,6 +59,16 @@ new Tilda(`${__dirname}/../package.json`, {
           , desc: "Filter author related contributions in the current repository."
         }
       , {
+            opts: ["S", "author-stats"]
+          , desc: "Shows a pie chart with author additions/deletions statistics."
+        }
+      , {
+            opts: ["M", "stats-mode"]
+          , desc: "Mode for author stats: 'additions', 'deletions', or 'both' (default: 'both')."
+          , name: "mode"
+          , default: "both"
+        }
+      , {
             opts: ["n", "disable-ansi"]
           , desc: "Forces the tool not to use ANSI styles."
         }
@@ -86,6 +96,9 @@ new Tilda(`${__dirname}/../package.json`, {
       , "git-stats -l # Light mode"
       , "git-stats -s '1 January, 2012' # All the commits from 1 January 2012 to now"
       , "git-stats -s '1 January, 2012' -u '31 December, 2012' # All the commits from 2012"
+      , "git-stats -S # Shows author additions/deletions statistics pie chart"
+      , "git-stats -S -M additions # Shows only additions statistics"
+      , "git-stats -S -M deletions # Shows only deletions statistics"
     ]
   , notes: "Your commit history is kept in ~/.git-stats by default. You can create ~/.git-stats-config.js to specify different defaults."
 }).main(action => {
@@ -100,6 +113,8 @@ new Tilda(`${__dirname}/../package.json`, {
       , globalActivityOpt = action.options.globalActivity
       , rawOpt = action.options.raw
       , authorOpt = action.options.author
+      , authorStatsOpt = action.options.authorStats
+      , statsModeOpt = action.options.statsMode
       ;
 
     let options = {};
@@ -162,7 +177,7 @@ new Tilda(`${__dirname}/../package.json`, {
     }
 
     // Add the repo path
-    if (authorsOpt.is_provided || globalActivityOpt.is_provided) {
+    if (authorsOpt.is_provided || globalActivityOpt.is_provided || authorStatsOpt.is_provided) {
         options.repo = process.cwd();
     }
 
@@ -177,7 +192,14 @@ new Tilda(`${__dirname}/../package.json`, {
         options.radius = (process.stdout.rows / 2) - 4;
     }
 
-    if (!authorsOpt.is_provided || globalActivityOpt.is_provided) {
+    // Handle author stats
+    if (authorStatsOpt.is_provided) {
+        options.no_ansi = noAnsiOpt.is_provided;
+        options.radius = (process.stdout.rows / 2) - 4;
+        options.mode = statsModeOpt.value || 'both';
+    }
+
+    if (!authorsOpt.is_provided && !authorStatsOpt.is_provided || globalActivityOpt.is_provided) {
         // This can be a string or an object
         if (/^object|string$/.test(Typpy(GitStats.config.theme)) && !noAnsiOpt.is_provided && !lightOpt.is_provided) {
             options.theme = GitStats.config.theme;
@@ -203,6 +225,10 @@ new Tilda(`${__dirname}/../package.json`, {
 
     if (globalActivityOpt.is_provided) {
         return GitStats.globalActivity(options, display);
+    }
+
+    if (authorStatsOpt.is_provided) {
+        return GitStats.authorsStatsPie(options, display);
     }
 
     // Show the graphs

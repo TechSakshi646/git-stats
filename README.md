@@ -103,6 +103,10 @@ Options:
                          repository.
   -a, --authors          Shows a pie chart with the author related
                          contributions in the current repository.
+  -S, --author-stats     Shows a pie chart with author additions/deletions
+                         statistics.
+  -M, --stats-mode <mode> Mode for author stats: 'additions', 'deletions', or
+                         'both' (default: 'both').
   -u, --until <date>     Optional end date.
   -s, --since <date>     Optional start date.
   --record <data>        Records a new commit. Don't use this unless you are
@@ -116,6 +120,9 @@ Examples:
   $ git-stats -l # Light mode
   $ git-stats -s '1 January, 2012' # All the commits from 1 January 2012 to now
   $ git-stats -s '1 January, 2012' -u '31 December, 2012' # All the commits from 2012
+  $ git-stats -S # Shows author additions/deletions statistics pie chart
+  $ git-stats -S -M additions # Shows only additions statistics
+  $ git-stats -S -M deletions # Shows only deletions statistics
 
 Your commit history is kept in ~/.git-stats by default. You can create
 ~/.git-stats-config.js to specify different defaults.
