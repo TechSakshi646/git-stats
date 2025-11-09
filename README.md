@@ -93,27 +93,27 @@ Usage: git-stats [options]
 Local git statistics including GitHub-like contributions calendars.
 
 Options:
-  -r, --raw              Outputs a dump of the raw JSON data.
-  -g, --global-activity  Shows global activity calendar in the current
-                         repository.
-  -d, --data <path>      Sets a custom data store file.
-  -l, --light            Enables the light theme.
-  -n, --disable-ansi     Forces the tool not to use ANSI styles.
-  -A, --author           Filter author related contributions in the current
-                         repository.
-  -a, --authors          Shows a pie chart with the author related
-                         contributions in the current repository.
-  -S, --author-stats     Shows a pie chart with author additions/deletions
-                         statistics.
-  -M, --stats-mode <mode> Mode for author stats: 'additions', 'deletions', or
-                         'both' (default: 'both').
-  -u, --until <date>     Optional end date.
-  -s, --since <date>     Optional start date.
-  --record <data>        Records a new commit. Don't use this unless you are
-                         a mad scientist. If you are a developer just use
-                         this option as part of the module.
-  -h, --help             Displays this help.
-  -v, --version          Displays version information.
+  -r, --raw                Outputs a dump of the raw JSON data.
+  -g, --global-activity    Shows global activity calendar in the current
+                           repository.
+  -d, --data <path>        Sets a custom data store file.
+  -l, --light              Enables the light theme.
+  -n, --disable-ansi       Forces the tool not to use ANSI styles.
+  -M, --stats-mode <mode>  Mode for author stats: 'additions', 'deletions', or
+                           'both' (default: 'both').
+  -S, --author-stats       Shows a pie chart with author additions/deletions
+                           statistics.
+  -A, --author             Filter author related contributions in the current
+                           repository.
+  -a, --authors            Shows a pie chart with the author related
+                           contributions in the current repository.
+  -u, --until <date>       Optional end date.
+  -s, --since <date>       Optional start date.
+  --record <data>          Records a new commit. Don't use this unless you are
+                           a mad scientist. If you are a developer just use
+                           this option as part of the module.
+  -h, --help               Displays this help.
+  -v, --version            Displays version information.
 
 Examples:
   $ git-stats # Default behavior (stats in the last year)
